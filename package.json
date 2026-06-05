@@ -16,7 +16,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -33,7 +34,7 @@
     "review",
     "receipt"
   ],
-  "author": "Roger",
+  "author": "Roger Chappel",
   "license": "MIT",
   "engines": {
     "node": ">=20"
@@ -41,5 +42,13 @@
   "devDependencies": {
     "@types/node": "^24.0.0",
     "typescript": "^5.8.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rogerchappel/depreceipt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rogerchappel/depreceipt/issues"
+  },
+  "homepage": "https://github.com/rogerchappel/depreceipt#readme"
 }
