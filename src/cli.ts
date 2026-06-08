@@ -59,14 +59,15 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
 }
 
 function parseArgs(argv: string[]): ParsedArgs {
+  const command = argv[0]?.startsWith("-") ? undefined : argv[0];
   const args: ParsedArgs = {
-    command: argv[0],
+    command,
     cwd: process.cwd(),
     format: "json",
     help: false,
   };
 
-  for (let index = args.command ? 1 : 0; index < argv.length; index += 1) {
+  for (let index = command ? 1 : 0; index < argv.length; index += 1) {
     const token = argv[index];
     if (token === "--help" || token === "-h") {
       args.help = true;
