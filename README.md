@@ -18,19 +18,19 @@ npm run build
 Scan the current project and write a dependency receipt:
 
 ```sh
-node dist/cli.js scan --cwd . --format markdown --output depreceipt.md
+node dist/src/cli.js scan --cwd . --format markdown --output depreceipt.md
 ```
 
 Compare a saved receipt with the current dependency state:
 
 ```sh
-node dist/cli.js diff --before depreceipt.json --cwd . --format markdown
+node dist/src/cli.js diff --before depreceipt.json --cwd . --format markdown
 ```
 
 Render reviewer prose for a receipt or diff:
 
 ```sh
-node dist/cli.js explain --receipt depreceipt.json
+node dist/src/cli.js explain --receipt depreceipt.json
 ```
 
 ## Verify
