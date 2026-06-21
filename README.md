@@ -21,6 +21,20 @@ Scan the current project and write a dependency receipt:
 node dist/src/cli.js scan --cwd . --format markdown --output depreceipt.md
 ```
 
+The markdown receipt lists every supported lockfile source and each parsed package:
+
+```md
+# Dependency Receipt
+
+Packages: 2
+
+## Sources
+- npm (npm): `package-lock.json`
+
+## Packages
+- npm/left-pad@1.3.0 (production)
+```
+
 Compare a saved receipt with the current dependency state:
 
 ```sh
@@ -33,6 +47,13 @@ Render reviewer prose for a receipt or diff:
 node dist/src/cli.js explain --receipt depreceipt.json
 ```
 
+Run the fixture-backed CLI smoke locally:
+
+```sh
+npm test
+npm run smoke
+```
+
 ## Verify
 
 ```sh
@@ -42,6 +63,7 @@ npm run release:check
 ## Limitations
 
 - Receipt quality depends on the supported lockfile formats present in the target project.
+- Python requirement ranges such as `django>=5` are ignored until the parser can preserve range semantics.
 - The tool explains dependency changes; it does not decide whether an upgrade is safe.
 
 ## Contributing
