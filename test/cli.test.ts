@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { cp, mkdtemp, readFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 
@@ -22,7 +22,7 @@ test("scan command writes a redacted receipt for mixed lockfiles", async () => {
 
   assert.equal(exitCode.code, 0);
   assert.equal(exitCode.stdout, "");
-  assert.equal(receipt.root.includes(tmpdir()), false);
+  assert.equal(receipt.root.includes(homedir()), false);
   assert.deepEqual(
     receipt.sources.map((source) => `${source.manager}:${source.path}`),
     ["npm:package-lock.json", "pip:requirements.txt"],
