@@ -1,0 +1,5 @@
+Requests==2.32.3
+rich==13.7.1
+
+# Unsupported ranges are intentionally ignored until the parser can preserve them.
+django>=5
