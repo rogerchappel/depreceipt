@@ -1,9 +1,5 @@
 # Changelog
 
-## Unreleased
-
-- Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
-
 All notable changes to this project will be documented in this file.
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
@@ -13,7 +9,14 @@ format and uses semantic versioning when versioned releases are published.
 
 ### Added
 
+- Fixture-backed CLI smoke tests for mixed npm and Python lockfiles.
+- README examples for generated markdown receipts and local fixture verification.
 - Initial project setup.
+
+### Changed
+
+- Documented current Python requirement-range parsing limits for reviewers.
+- Documented local verification, npm package metadata, and pack contents for the next public release.
 
 ## Release Links
 
