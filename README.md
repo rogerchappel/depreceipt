@@ -57,8 +57,16 @@ npm run smoke
 ## Verify
 
 ```sh
+npm run check
+npm test
+npm run smoke
+npm run package:smoke
 npm run release:check
 ```
+
+`npm run package:smoke` builds the package and fails if the published tarball
+would omit the CLI entrypoint, public API, type declarations, license, security
+policy, or changelog.
 
 ## Limitations
 
