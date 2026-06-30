@@ -6,6 +6,8 @@ import { explainDiff, explainReceipt, formatDiff, formatReceipt, type OutputForm
 import { scan } from "./scanner.js";
 import type { Receipt } from "./types.js";
 
+const VERSION = "0.1.0";
+
 interface ParsedArgs {
   command?: string;
   cwd: string;
@@ -15,11 +17,17 @@ interface ParsedArgs {
   after?: string;
   receipt?: string;
   help: boolean;
+  version: boolean;
 }
 
 export async function main(argv: string[] = process.argv.slice(2)): Promise<number> {
   try {
     const args = parseArgs(argv);
+    if (args.version) {
+      process.stdout.write(`${VERSION}\n`);
+      return 0;
+    }
+
     if (args.help || !args.command) {
       process.stdout.write(helpText());
       return 0;
@@ -65,12 +73,15 @@ function parseArgs(argv: string[]): ParsedArgs {
     cwd: process.cwd(),
     format: "json",
     help: false,
+    version: false,
   };
 
   for (let index = command ? 1 : 0; index < argv.length; index += 1) {
     const token = argv[index];
     if (token === "--help" || token === "-h") {
       args.help = true;
+    } else if (token === "--version" || token === "-v") {
+      args.version = true;
     } else if (token === "--cwd") {
       args.cwd = requireValue(argv, (index += 1), token);
     } else if (token === "--format") {
@@ -129,6 +140,7 @@ Usage:
   depreceipt scan [--cwd DIR] [--format json|markdown] [--output FILE]
   depreceipt diff [--before FILE] [--after FILE] [--cwd DIR] [--format json|markdown]
   depreceipt explain [--receipt FILE] [--before FILE --after FILE] [--cwd DIR]
+  depreceipt --version
 
 Commands:
   scan      Read supported lockfiles and emit a dependency receipt.

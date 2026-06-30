@@ -15,6 +15,12 @@ npm run build
 
 ## Use
 
+Confirm the built CLI is available:
+
+```sh
+node dist/src/cli.js --version
+```
+
 Scan the current project and write a dependency receipt:
 
 ```sh

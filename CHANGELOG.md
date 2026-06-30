@@ -9,6 +9,7 @@ format and uses semantic versioning when versioned releases are published.
 
 ### Added
 
+- CLI `--version` output with unit, smoke, and package dry-run coverage.
 - Fixture-backed CLI smoke tests for mixed npm and Python lockfiles.
 - README examples for generated markdown receipts and local fixture verification.
 - Initial project setup.

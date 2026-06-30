@@ -51,6 +51,14 @@ test("explain command renders reviewer notes from the fixture receipt", async ()
   assert.match(result.stdout, /optional-peer@0\.2\.0 is optional/);
 });
 
+test("version flag prints the package version", async () => {
+  const result = await withCapturedStdout(() => main(["--version"]));
+  const packageJson = JSON.parse(await readFile(join(process.cwd(), "package.json"), "utf8")) as { version: string };
+
+  assert.equal(result.code, 0);
+  assert.equal(result.stdout, `${packageJson.version}\n`);
+});
+
 async function copyFixture(prefix: string): Promise<string> {
   const project = await mkdtemp(join(tmpdir(), prefix));
   await cp(fixtureRoot, project, { recursive: true });
