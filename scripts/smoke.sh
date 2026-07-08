@@ -17,10 +17,13 @@ JSON
 
 node dist/src/cli.js scan --cwd "$tmpdir" --output "$tmpdir/depreceipt.json"
 node dist/src/cli.js scan --cwd "$tmpdir" --format markdown --output "$tmpdir/depreceipt.md"
+node dist/src/cli.js diff --before "$tmpdir/depreceipt.json" --cwd "$tmpdir" --format markdown --output "$tmpdir/depreceipt-diff.md"
 node dist/src/cli.js explain --receipt "$tmpdir/depreceipt.json" --output "$tmpdir/explanation.md"
 node dist/src/cli.js --version > "$tmpdir/version.txt"
 
 grep -q '"totalPackages": 2' "$tmpdir/depreceipt.json"
 grep -q 'left-pad' "$tmpdir/depreceipt.md"
+grep -q '# Dependency Receipt Diff' "$tmpdir/depreceipt-diff.md"
+grep -q 'Added: 0' "$tmpdir/depreceipt-diff.md"
 grep -q '2 packages found' "$tmpdir/explanation.md"
 grep -Eq '^[0-9]+[.][0-9]+[.][0-9]+$' "$tmpdir/version.txt"
