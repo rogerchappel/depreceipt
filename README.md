@@ -77,7 +77,7 @@ policy, or changelog.
 ## Limitations
 
 - Receipt quality depends on the supported lockfile formats present in the target project.
-- Python requirement ranges such as `django>=5` are ignored until the parser can preserve range semantics.
+- Python requirement ranges are preserved as written for common single-bound operators such as `>=`, `<=`, `~=`, and `==`; compound constraints are still summarized by their first bound.
 - The tool explains dependency changes; it does not decide whether an upgrade is safe.
 
 ## Contributing

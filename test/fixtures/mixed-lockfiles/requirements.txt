@@ -1,5 +1,5 @@
 Requests==2.32.3
 rich==13.7.1
 
-# Unsupported ranges are intentionally ignored until the parser can preserve them.
+# Single-bound ranges are preserved in dependency receipts.
 django>=5
