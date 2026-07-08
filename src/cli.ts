@@ -1,12 +1,12 @@
 #!/usr/bin/env node
+import { readFileSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 import { diffReceipts } from "./diff.js";
 import { explainDiff, explainReceipt, formatDiff, formatReceipt, type OutputFormat } from "./format.js";
 import { scan } from "./scanner.js";
 import type { Receipt } from "./types.js";
-
-const VERSION = "0.1.0";
 
 interface ParsedArgs {
   command?: string;
@@ -24,7 +24,7 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
   try {
     const args = parseArgs(argv);
     if (args.version) {
-      process.stdout.write(`${VERSION}\n`);
+      process.stdout.write(`${packageVersion()}\n`);
       return 0;
     }
 
@@ -123,6 +123,15 @@ function requireValue(argv: string[], index: number, option: string): string {
 
 async function readReceipt(path: string): Promise<Receipt> {
   return JSON.parse(await readFile(path, "utf8")) as Receipt;
+}
+
+function packageVersion(): string {
+  const packageJsonPath = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..", "package.json");
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8")) as { version?: unknown };
+  if (typeof packageJson.version !== "string" || packageJson.version.length === 0) {
+    throw new Error("package.json is missing a version");
+  }
+  return packageJson.version;
 }
 
 async function writeOutput(content: string, output?: string): Promise<void> {

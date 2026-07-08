@@ -16,6 +16,7 @@ format and uses semantic versioning when versioned releases are published.
 
 ### Changed
 
+- CLI `--version` now reads the packaged `package.json` version to prevent release drift.
 - Documented current Python requirement-range parsing limits for reviewers.
 - Documented local verification, npm package metadata, and pack contents for the next public release.
 
