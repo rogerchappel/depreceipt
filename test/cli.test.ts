@@ -28,14 +28,14 @@ test("scan command writes a redacted receipt for mixed lockfiles", async () => {
     ["npm:package-lock.json", "pip:requirements.txt"],
   );
   assert.deepEqual(receipt.summary, {
-    totalPackages: 5,
-    ecosystems: { npm: 3, python: 2 },
-    directPackages: 5,
+    totalPackages: 6,
+    ecosystems: { npm: 3, python: 3 },
+    directPackages: 6,
     transitivePackages: 0,
   });
   assert.deepEqual(
     receipt.packages.map((entry) => `${entry.name}:${entry.kind}`),
-    ["@types/node:development", "left-pad:production", "optional-peer:optional", "requests:unknown", "rich:unknown"],
+    ["@types/node:development", "left-pad:production", "optional-peer:optional", "django:unknown", "requests:unknown", "rich:unknown"],
   );
 });
 
@@ -47,7 +47,7 @@ test("explain command renders reviewer notes from the fixture receipt", async ()
   const result = await withCapturedStdout(() => main(["explain", "--receipt", receiptPath]));
 
   assert.equal(result.code, 0);
-  assert.match(result.stdout, /5 packages found across 2 source file\(s\)\./);
+  assert.match(result.stdout, /6 packages found across 2 source file\(s\)\./);
   assert.match(result.stdout, /optional-peer@0\.2\.0 is optional/);
 });
 

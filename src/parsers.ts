@@ -7,7 +7,7 @@ interface ParseResult {
   packages: PackageEntry[];
 }
 
-const PYTHON_VERSION_PATTERN = /^([A-Za-z0-9_.-]+)==([^;\s]+)/;
+const PYTHON_VERSION_PATTERN = /^([A-Za-z0-9_.-]+)\s*(===|==|~=|!=|<=|>=|<|>)\s*([^,;\s]+)/;
 
 export async function parseLockfile(path: string): Promise<ParseResult | null> {
   const fileName = basename(path);
@@ -167,7 +167,7 @@ function parseRequirements(path: string, raw: string): ParseResult {
     .filter((line) => line && !line.startsWith("#"))
     .flatMap((line) => {
       const match = line.match(PYTHON_VERSION_PATTERN);
-      return match ? [packageEntry(normalizePythonName(match[1]), match[2], "python", "unknown", path)] : [];
+      return match ? [packageEntry(normalizePythonName(match[1]), `${match[2]}${match[3]}`, "python", "unknown", path)] : [];
     });
 
   return {

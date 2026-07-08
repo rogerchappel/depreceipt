@@ -61,6 +61,19 @@ test("scan summarizes nested Node and Python lockfiles", async () => {
   assert.deepEqual(receipt.summary.ecosystems, { npm: 2, python: 1 });
   assert.deepEqual(
     receipt.packages.map((entry) => `${entry.ecosystem}:${entry.name}:${entry.version}:${entry.kind}`),
-    ["npm:dev:2.0.0:development", "npm:prod:1.0.0:production", "python:requests:2.32.3:unknown"],
+    ["npm:dev:2.0.0:development", "npm:prod:1.0.0:production", "python:requests:==2.32.3:unknown"],
+  );
+});
+
+test("parseLockfile preserves common Python requirement ranges", async () => {
+  const root = await mkdtemp(join(tmpdir(), "depreceipt-requirements-ranges-"));
+  const lockfile = join(root, "requirements.txt");
+  await writeFile(lockfile, "Django>=5\nfastapi ~= 0.115\nblack==24.4.2\nignored-package\n");
+
+  const parsed = await parseLockfile(lockfile);
+
+  assert.deepEqual(
+    parsed?.packages.map((entry) => `${entry.name}:${entry.version}`),
+    ["black:==24.4.2", "django:>=5", "fastapi:~=0.115"],
   );
 });
