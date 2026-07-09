@@ -18,7 +18,16 @@ npm run build
 Confirm the built CLI is available:
 
 ```sh
+node dist/src/cli.js --help
 node dist/src/cli.js --version
+```
+
+After package installation, the same checks are available through the installed
+binary:
+
+```sh
+depreceipt --help
+depreceipt --version
 ```
 
 Scan the current project and write a dependency receipt:
